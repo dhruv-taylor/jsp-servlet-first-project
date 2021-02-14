@@ -1,5 +1,4 @@
 package com.dao;
-import java.lang.invoke.StringConcatFactory;
 import java.sql.*;
 
 import com.entities.User;
@@ -50,7 +49,6 @@ public class UserDao {
 		prstm.setString(2, password);
 		
 		ResultSet rs = prstm.executeQuery();
-		System.out.println(rs);
 		
 		if(rs.next())
 		{
@@ -60,7 +58,7 @@ public class UserDao {
 			user.setEmail(rs.getString("email"));
 			user.setGender(rs.getString("gender"));
 			user.setAbout(rs.getString("about"));
-			
+			user.setProfile(rs.getString("profile"));			
 		}
 		
 		
@@ -73,5 +71,29 @@ public class UserDao {
 		
 	} 
 	
+	public boolean updateUser(User user)
+	{
+		Boolean status=false;
+		 
+		try {
+			String updateQuery = "UPDATE user SET name=?, email=?, gender=?, about=?, profile=? where id=?";
+			
+			PreparedStatement prstm = this.con.prepareStatement(updateQuery);			
+			prstm.setString(1, user.getName());
+			prstm.setString(2, user.getEmail());
+			prstm.setString(3, user.getGender());
+			prstm.setString(4, user.getAbout());
+			prstm.setString(5, user.getProfile());
+			prstm.setInt(6, user.getId());
+			prstm.executeUpdate();
+			
+			status=true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		
+		return status;
+	}
 	
 }

@@ -2,7 +2,7 @@ package com.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
+//import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,8 +60,8 @@ public class LoginServlet extends HttpServlet {
 		}
 		else
 		{
-			HttpSession session = request.getSession();
-			session.setAttribute("currentUser", u);
+			HttpSession s = request.getSession();
+			s.setAttribute("currentUser", u);
 			response.sendRedirect("profile.jsp");
 		}
 		
