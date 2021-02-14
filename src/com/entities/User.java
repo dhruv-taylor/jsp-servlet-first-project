@@ -27,6 +27,10 @@ public class User {
 		this.about = about;
 	}
 
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}

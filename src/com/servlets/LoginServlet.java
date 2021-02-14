@@ -1,30 +1,31 @@
 package com.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.dao.UserDao;
 import com.entities.User;
 import blog.helper.ConnectionProvider;
 
 /**
- * Servlet implementation class RegisterUser
+ * Servlet implementation class LoginServlet
  */
-@WebServlet("/RegisterUser")
-@MultipartConfig
-public class RegisterUser extends HttpServlet {
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterUser() {
+    public LoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,33 +42,27 @@ public class RegisterUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
-		String term = request.getParameter("term");
-		if (term != null)
+		//get email and passwora from request.
+		
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+//		User user = new User();
+		UserDao dao = new UserDao(ConnectionProvider.getConnection());
+		User u = dao.getUserByEmailAndPassword(email, password);
+		
+		if (u == null)
 		{
-			String name = request.getParameter("name");
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			String gender = request.getParameter("gender");
-			String about = request.getParameter("about");
+			PrintWriter out = response.getWriter();
+			out.print("Invalid login or password");
 			
-			User user = new User(name, email, password, gender, about);
-			
-			UserDao dao = new UserDao(ConnectionProvider.getConnection());
-			
-			if(dao.saveUser(user))
-			{
-				System.out.print("Saved!");
-			}
-			else
-			{
-				System.out.print("Faild!");
-			}
-			
-//			PrintWriter out = response.getWriter();
-//			out.print(name +" - "+email+" - "+password+" - "+gender+" - "+about);
-			
+		}
+		else
+		{
+			HttpSession session = request.getSession();
+			session.setAttribute("currentUser", u);
+			response.sendRedirect("profile.jsp");
 		}
 		
 		

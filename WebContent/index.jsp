@@ -28,7 +28,7 @@
       <a class="nav-link" href="userRegister.jsp">Register</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Link</a>
+      <a class="nav-link" href="login.jsp">Login</a>
     </li>
     <li class="nav-item">
       <a class="nav-link disabled" href="#">Disabled</a>
@@ -40,12 +40,14 @@
 
 <h1>Homepage</h1>
 
+<%--
+
 <%
 	Connection con = ConnectionProvider.getConnection();
 %>
 
 <h1>connection Verification : </h1> <%= con %>
-
+--%>
 
 </div>
 

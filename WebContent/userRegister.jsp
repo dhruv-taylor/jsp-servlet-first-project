@@ -8,7 +8,7 @@
 </head>
 <body>
 	
-<form action="RegisterUser" method="post">
+<form method="post" id="registerUser">
 <label>Name</label>
 <input type="text" name="name"> <br>
 <label>Email</label>
@@ -26,6 +26,40 @@
 <hr>
 <input type="submit" value="submit">
 </form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+	console.log("loaded script...");
+	
+	$('#registerUser').on('submit', function(event)
+	{
+		event.preventDefault();
+		
+		let form =new FormData(this);
+		
+		$.ajax({
+			url:"RegisterUser",
+			method: "POST",
+			data: form,
+			success: function(data, textStatus, jqXHR) {
+				console.log(textStatus);
+				alert(textStatus);
+			},
+			error: function(jqXHR, textStatus, errorThrown)
+			{
+				console.log(textStatus);
+				alert(textStatus);
+			},
+			processData:false,
+			contentType:false
+		})		
+	})
+	
+})
+
+</script>
 
 
 </body>
