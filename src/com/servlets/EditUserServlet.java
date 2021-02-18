@@ -16,6 +16,7 @@ import javax.servlet.http.Part;
 
 import com.dao.UserDao;
 import com.entities.User;
+import com.mysql.cj.x.protobuf.MysqlxCrud.Delete;
 
 import blog.helper.ConnectionProvider;
 import blog.helper.Helper;
@@ -67,6 +68,7 @@ public class EditUserServlet extends HttpServlet {
 		user.setEmail(email);
 		user.setGender(gender);
 		user.setAbout(about);
+		String oldFile = user.getProfile();
 		user.setProfile(imageName);
 
 		// Update user
@@ -77,8 +79,13 @@ public class EditUserServlet extends HttpServlet {
 
 		if (status) {
 			String path = request.getRealPath("/") + "pics" + File.separator + user.getProfile();
-
-			Helper.deleteFile(path);
+			
+			if(!oldFile.equals("default.png"))
+			{
+				// Delete old pic
+				String oldFilePath = request.getRealPath("/") + "pics" + File.separator + oldFile;
+				Helper.deleteFile(oldFilePath);
+			}
 
 			if (Helper.saveFile(part.getInputStream(), path)) {
 				out.println("Profile Updated...");

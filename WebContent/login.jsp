@@ -1,31 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Login Page</title>
+
+<jsp:include page="externalLinks.html" />
+
 </head>
 <body>
+	<jsp:include page="genericNavbar.jsp" />
+	<div class="container">
+		
+			<h2>Login</h2> 
+			<hr>
+		
+			<form action="LoginServlet" method="POST">
 
-<fieldset>
-<legend>Login</legend>
+				<div class="form-group">
+					<lebel>Email</lebel>
+					<input type="email" name="email">
+				</div>
 
-<form action="LoginServlet" method="POST">
+				<div class="form-group">
+					<lebel>Password</lebel>
+					<input type="password" name="password">
+				</div>
 
-<lebel>email</lebel>
-<input type="email" name="email">
+				<div class="form-group">
+					<button type="submit">Submit</button>
+				</div>
+			</form>
 
-<br>
-
-<lebel>Password</lebel>
-<input type="password" name="password">
-
-<button type="submit">Submit</button>
-
-</form>
-</fieldset>
-
-
+	</div>
+	
 </body>
 </html>

@@ -12,78 +12,90 @@ if (user == null) {
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>User Profile | xyz</title>
+<jsp:include page="externalLinks.html" />
 </head>
 <body>
+	
+	<jsp:include page="genericNavbar.jsp" />
 
-	<h1>Hellow User</h1>
+	<div class="container">
+		<h1>Hellow User</h1>
 
-	<div class="userDetails">
-		<table>
-			<tr>
-				<td>Name:</td>
-				<td><%=user.getName()%></td>
-			</tr>
-			<tr>
-				<td>Email:</td>
-				<td><%=user.getEmail()%></td>
-			</tr>
-			<tr>
-				<td>Gender:</td>
-				<td><%=user.getGender()%></td>
-			</tr>
-			<tr>
-				<td>About:</td>
-				<td><%=user.getAbout()%></td>
-			</tr>
-		</table>
+		<div class="userDetails">
 
+			<div class="row">
+				<label for="#" class="col-sm-6" for="content">Name</label>
+				<p class="col-sm-6"><%=user.getName()%></p>
+			</div>
 
-		<button class="userUpdateButton">Update</button>
+			<div class="row">
+				<label for="#" class="col-sm-6" for="content">Email</label>
+				<p class="col-sm-6"><%=user.getEmail()%></p>
+			</div>
 
-	</div>
+			<div class="row">
+				<label for="#" class="col-sm-6" for="content">Gender</label>
+				<p class="col-sm-6"><%=user.getGender()%></p>
+			</div>
 
-	<div class="userUpdate">
-		<table>
-			<form action="EditUserServlet" method="POST" enctype="multipart/form-data">
-				<tr>
-					<td>Image:</td>
-					<td><img src="pics/<%=user.getProfile()%>"></td>
-				</tr>
-				<tr>
-					<td>Name:</td>
-					<td><input type="text" name="name" value="<%=user.getName()%>"></td>
-				</tr>
-				<tr>
-					<td>Email:</td>
-					<td><input type="email" name="email" value="<%=user.getEmail()%>"></td>
-				</tr>
-				<tr>
-					<td>Gender:</td>
-					<td><input type="text" name="gender" value="<%=user.getGender()%>" disable><%=user.getGender()%></td>
-					<!-- <td><input type="radio" name="gender" value="male">male  <input type="radio" name="gender" value="female">Female</td> -->
-				</tr>
-				<tr>
-					<td>About:</td>
-					<td><textarea name="about"><%=user.getAbout()%></textarea></td>
-				</tr>
-				<tr>
-					<td>Image</td>
-					<td><input type="file" name="image"></td>
-				</tr>
+			<div class="row">
+				<label for="#" class="col-sm-6" for="content">About</label>
+				<p class="col-sm-6"><%=user.getAbout()%></p>
+			</div>
+
+			<div class="row">
+				<button class="userUpdateButton col-md-auto">Update</button>
+			</div>
+		</div>
 
 
-				<tr>
-					<td><button type="submit">Submit</button></td>
-					<td></td>
-				</tr>
+
+		<div class="userUpdate">
+
+			<form action="EditUserServlet" method="POST"
+				enctype="multipart/form-data">
+
+				<div class="form-group">
+					<label for="#">Image:</label> <img width="50"
+						src="pics/<%=user.getProfile()%>">
+				</div>
+
+				<div class="form-group">
+					<label for="#">Name:</label> <input type="text" name="name"
+						value="<%=user.getName()%>">
+				</div>
+
+				<div class="form-group">
+					<label for="#">Email:</label> <input type="email"
+						name="email" value="<%=user.getEmail()%>">
+				</div>
+
+				<div class="form-group">
+					<label for="#">Gender:</label> <input type="text"
+						name="gender" value="<%=user.getGender()%>">
+				</div>
+
+				<div class="form-group">
+					<label for="#">About:</label>
+					<textarea name="about"><%=user.getAbout()%></textarea>
+				</div>
+
+				<div class="form-group">
+					<label for="#">Image</label> <input type="file" name="image">
+				</div>
+
+
+				<div class="form-group">
+					<button type="submit">Submit</button>
+				</div>
+
 			</form>
-		</table>
+		</div>
 	</div>
-
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 	<script>
 		$(document).ready(function() {
 			$(".userUpdate").hide();
